@@ -1,0 +1,7 @@
+type: framework
+content:
+  - Data Collection and Preprocessing
+  - Model Training
+  - Model Evaluation
+  - Hyperparameter Tuning
+current_task: 3

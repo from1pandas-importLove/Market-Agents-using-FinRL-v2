@@ -1,0 +1,94 @@
+<div class="step-text">
+<h5 id="description">Description</h5>
+<p>Imagine you are a financial analyst tasked with developing robust trading strategies using historical stock data. Your goal is to create a reliable and effective model to predict stock movements and optimize a portfolio. The first step in this process is to gather and preprocess the data. This involves installing the necessary dependencies, downloading stock data from Yahoo Finance for a custom list of stocks, normalizing the data, and splitting it into training and testing sets. These steps are crucial to ensure the data is clean, consistent, and ready for training the reinforcement learning model.</p>
+<p>In this stage, you will:</p>
+<ol>
+<li>Install the necessary dependencies for data handling and model building.</li>
+<li>Download historical stock data for a custom list of stocks from Yahoo Finance.</li>
+<li>Normalize the data using appropriate scaling techniques to ensure consistency.</li>
+<li>Split the data into training and testing sets to prepare for model training.</li>
+</ol>
+<p>By the end of this stage, you will have a clean and well-structured dataset that is ready for the next phase of model training.</p>
+<p>You can use this <a href="https://cogniterra.org/media/attachments/lesson/39679/markets_agents_stage1.ipynb" rel="noopener noreferrer nofollow" target="_blank">Colab template</a> (recommended) or copy-paste the code below, to complete this stage:</p>
+<pre><code class="language-python"># Install necessary libraries
+!pip install wrds
+!pip install swig
+!apt-get update -y -qq &amp;&amp; apt-get install -y -qq cmake libopenmpi-dev python3-dev zlib1g-dev libgl1-mesa-glx swig
+!pip install git+https://github.com/AI4Finance-Foundation/FinRL.git
+!pip install torch_geometric
+!pip install optuna
+!pip install quantstats</code></pre>
+<p>Import libraries and set the device:</p>
+<pre><code class="language-python"># import librabries and set the device
+import torch
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import MaxAbsScaler
+from finrl.meta.preprocessor.yahoodownloader import YahooDownloader
+from finrl.meta.preprocessor.preprocessors import GroupByScaler
+from finrl.meta.env_portfolio_optimization.env_portfolio_optimization import PortfolioOptimizationEnv
+from finrl.agents.portfolio_optimization.models import DRLAgent
+from finrl.agents.portfolio_optimization.architectures import EIIE
+import optuna
+
+# Set device
+device = 'cuda:0' if torch.cuda.is_available() else 'cpu'</code></pre>
+<p>Import the data,  preprocess it, and split it into train and test datasets:</p>
+<pre><code class="language-python"># Define your custom stock list
+# EX: "AAPL", "MSFT", "GOOGL", "AMZN"
+# Choose the ones, that you want to work with
+CUSTOM_STOCK_LIST = [
+
+]
+
+
+# Download stock data
+START_DATE = # start date of the portfolio
+END_DATE = # end  date of the portfolio
+portfolio_raw_df = YahooDownloader(start_date=START_DATE,
+                                   end_date=END_DATE,
+                                   ticker_list=CUSTOM_STOCK_LIST).fetch_data()
+
+# Group by ticker and count occurrences
+
+
+# Normalize the data
+# You can use GroupByScaler with a MaxAbsScaler here
+portfolio_norm_df = # your code here
+
+# Select relevant columns
+# Ex: "date", "tic", "close", "high", "low"
+df_portfolio = portfolio_norm_df[[...]] # remove the "..." and put your columns
+
+# Split data into training and testing sets
+
+# Split data into training and testing sets
+
+START_DATE_TRAIN =  # you start date for the train data
+END_DATE_TRAIN = # your end date for the train data
+START_DATE_TEST =  # your start date for the test data
+END_DATE_TEST = # your end date for the test data
+
+# Define your train and test data
+df_portfolio_train = # START_DATE_TRAIN &lt;= df_portfolio["date"] &lt; END_DATE_TRAIN
+df_portfolio_test =  # START_DATE_TEST &lt;= df_portfolio["date"] &lt; END_DATE_TEST</code></pre>
+<p>At the end of the stage print the shape of the train and test dfs:</p>
+<pre><code class="language-python"># print the train and test dfs shape
+
+TRAIN_DF_SHAPE = # shape of the train df
+TEST_DF_SHAPE = # shape of the test df
+print("Train df shape: ", TRAIN_DF_SHAPE)
+print("Test df shape: ", TEST_DF_SHAPE)</code></pre>
+<h5 id="objectives">Objectives</h5>
+<p>To complete this stage:</p>
+<ol>
+<li>Install required packages such as <code class="language-python">wrds</code>, <code class="language-python">swig</code>, <code class="language-python">FinRL</code>, <code class="language-python">torch_geometric</code>, <code class="language-python">optuna</code>, <code class="language-python">streamlit</code>, and <code class="language-python">quantstats</code>.</li>
+<li>Download stock data for a custom list of stocks from Yahoo Finance.</li>
+<li>Normalize the data using appropriate scaling techniques.</li>
+<li>Split the data into training and testing sets.</li>
+</ol>
+<h5 id="examples">Examples</h5>
+<p><strong>Example 1:</strong><em> an example of the program output</em></p>
+<pre><code class="language-no-highlight">Train df shape: (18104, 5)
+Test df shape: (6048, 5)</code></pre>
+</div>

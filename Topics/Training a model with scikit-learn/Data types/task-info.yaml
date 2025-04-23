@@ -1,0 +1,14 @@
+type: choice
+is_multiple_choice: true
+options:
+  - text: <code>numpy</code> arrays
+  - text: <code>pandas</code> dataframes
+  - text: <code>scipy</code> matrices
+files:
+  - name: main.py
+    visible: true
+    learner_created: false
+feedback_link: https://hyperskill.org/learn/step/14679#comment
+status: Solved
+record: -1
+local_check: false

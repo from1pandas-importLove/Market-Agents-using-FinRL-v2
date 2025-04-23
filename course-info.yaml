@@ -1,0 +1,18 @@
+type: hyperskill
+title: Market Agents using FinRL
+language: English
+summary: "<p>This project leverages the FinRL library to conduct market analysis and\
+  \ optimize trading strategies using reinforcement learning techniques. We will follow\
+  \ a structured approach covering data collection, preprocessing, model training,\
+  \ backtesting, and hyperparameter tuning. The aim is to build robust trading strategies\
+  \ that can adapt to dynamic market changes and effectively utilize historical stock\
+  \ data. By the end of this project, you will have a solid understanding of how to\
+  \ apply reinforcement learning to financial markets, from data collection to strategy\
+  \ optimization.</p><br/><br/>Learn more at <a href=\"https://hyperskill.org/projects/483?utm_source=ide&utm_medium=ide&utm_campaign=ide&utm_content=project-card\"\
+  >https://hyperskill.org/projects/483</a>"
+programming_language: Python
+content:
+  - Market Agents using FinRL
+  - Topics
+mode: Study
+yaml_version: 1

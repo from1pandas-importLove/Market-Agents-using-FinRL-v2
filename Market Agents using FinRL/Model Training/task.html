@@ -1,0 +1,66 @@
+<div class="step-text">
+<h5 id="description">Description</h5>
+<p></p><div class="alert alert-warning">We recommend you to implement the following stages in Google Colab. Before completing this stage, we recommend you to enable GPU in your notebook in Google Colab.</div>
+<p>With the preprocessed data at hand, it's time to train the reinforcement learning model. In this stage, you'll set up the training environment and configure the model parameters. Using the DRLAgent from the FinRL library, you'll train the model to learn effective trading strategies based on historical data. This involves defining the environment, setting up the model architecture, and specifying the parameters for the learning process.</p>
+<p>In this stage, you will:</p>
+<ol>
+<li>Define the training environment, including the initial amount of money, commission fee, time window, and features.</li>
+<li>Set the parameters for the PolicyGradient model and the EIIE architecture.</li>
+<li>Train the model using the DRLAgent, specifying the number of episodes for training.</li>
+<li>Save the trained model for future use.</li>
+</ol>
+<p>By the end of this stage, you will have a trained reinforcement learning model that has learned to trade based on historical data.</p>
+<p>You can use this <a href="https://cogniterra.org/media/attachments/lesson/39679/markets_agents_stage2.ipynb" rel="noopener noreferrer nofollow" target="_blank">Colab template</a> (recommended) or copy-paste the code below, to complete this stage:</p>
+<pre><code class="language-python"># Define the environment
+# We will use portfolio optimization for the project
+INITIAL_AMOUT =  # initial amount of money in the portfolio: float
+COMISSION_FEE_PTC = # commission fee: float
+TIME_WINDOW = # time window: int
+FEATURES = [...] # ex: "close", "high"
+
+environment_train = PortfolioOptimizationEnv(
+    df_portfolio_train,
+    initial_amount=INITIAL_AMOUT,
+    comission_fee_pct=COMISSION_FEE_PTC,
+    time_window=TIME_WINDOW,
+    features=FEATURES,
+    normalize_df=None # df is already normalized
+)
+
+# Set PolicyGradient parameters
+# Set the learning rate for the training
+model_kwargs = {
+    "lr": , # put a learning rate, ex: 0.01
+    "policy": EIIE, # we will use EIIE policy for this project
+}
+
+# Set EIIE's parameters
+policy_kwargs = {
+    "k_size": , # put the k_size: int
+    "time_window": TIME_WINDOW, # time window defined previously
+}
+
+# Instantiate the model
+model = DRLAgent(environment_train).get_model("pg", device, model_kwargs, policy_kwargs)
+
+# Train the model
+EPISODES = # number of episodes to training the model: in
+DRLAgent.train_model(model, episodes=EPISODES)
+
+# Save the model
+torch.save(model.train_policy.state_dict(), "policy_EIIE.pt")</code></pre>
+<p>At the end of the stage print the last value of the train portfolio with this:</p>
+<pre><code class="language-python"># print the final value of the portfolio
+final_portfolio_value_train = environment_train._asset_memory["final"][-1]
+print("The final portfolio value at train is:", final_portfolio_value_train)</code></pre>
+<h5 id="objectives">Objectives</h5>
+<p>To complete this stage:</p>
+<ol>
+<li>Define the training environment.</li>
+<li>Set PolicyGradient parameters and EIIE's parameters.</li>
+<li>Train the model using DRLAgent.</li>
+</ol>
+<h5 id="examples">Examples</h5>
+<p><strong>Example 1:</strong><em> an example of the program output</em></p>
+<pre><code class="language-no-highlight">The final portfolio value at train is: 1818419.9</code></pre>
+</div>

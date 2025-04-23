@@ -1,0 +1,59 @@
+<div class="step-text">
+<h5 id="description">Description</h5>
+<p></p><div class="alert alert-warning">We recommend you to implement the following stages in Google Colab. Before completing this stage, we recommend you to enable GPU in your notebook in Google Colab.</div>
+<p>Well done! at this point you have a robust model that has learned to trade based on historical data. In this stage, you'll create a testing environment and validate the model's performance on unseen data to ensure its robustness. This is a crucial step to determine how well the model generalizes to new data and to identify any potential weaknesses.</p>
+<p>In this stage, you will:</p>
+<ol>
+<li>Create a testing environment similar to the training environment.</li>
+<li>Load the trained policy and apply it to the testing environment.</li>
+<li>Validate the model's performance by comparing the results on the test data.</li>
+<li>Analyze the results to assess the model's effectiveness and make necessary adjustments.</li>
+</ol>
+<p>By the end of this stage, you will have a clear understanding of the model's performance on unseen data, helping you make informed decisions for further improvements.</p>
+<p>You can use this <a href="https://cogniterra.org/media/attachments/lesson/39679/markets_agents_stage3.ipynb" rel="noopener noreferrer nofollow" target="_blank">Colab template</a> (recommended) or copy-paste the code below, to complete this stage:</p>
+<pre><code class="language-python"># Evaluate the model
+# Create test env
+
+INITIAL_AMOUT =  # initial amount of money in the portfolio: float
+COMISSION_FEE_PTC = # commission fee: float
+TIME_WINDOW = # time window: int
+FEATURES = [...] # ex: "close", "high"
+
+enviroment_test = PortfolioOptimizationEnv(
+    df_portfolio_test,
+    initial_amount=INITIAL_AMOUT,
+    comission_fee_pct=COMISSION_FEE_PTC,
+    time_window=TIME_WINDOW,
+    features=FEATURES,
+    normalize_df=None # df is already normalized
+)
+
+
+EIIE_results = {
+    "train": environment_train._asset_memory["final"],
+    "test": {},
+}
+
+# instantiate an architecture with the same arguments used in training
+# and load with load_state_dict.
+policy = EIIE(time_window=TIME_WINDOW, device=device)
+policy.load_state_dict(torch.load("policy_EIIE.pt"))
+
+# testing
+DRLAgent.DRL_validation(model, enviroment_test, policy=policy)
+EIIE_results["test"] = enviroment_test._asset_memory["final"]</code></pre>
+<p> At the end of the stage print the last value of the test portfolio with this:</p>
+<pre><code class="language-python"># print the final value of the portfolio
+final_portfolio_value_test = enviroment_test._asset_memory["final"][-1]
+print("The final portfolio value at test is:", final_portfolio_value_test)</code></pre>
+<h5 id="objectives">Objectives</h5>
+<p>To complete this stage:</p>
+<ol>
+<li>Create a testing environment.</li>
+<li>Load the trained policy.</li>
+<li>Validate the model on the test data.</li>
+</ol>
+<h5 id="examples">Examples</h5>
+<p><strong>Example 1:</strong><em> an example of the program output</em></p>
+<pre><code class="language-no-highlight">The final portfolio value at test is: 568793.5</code></pre>
+</div>
